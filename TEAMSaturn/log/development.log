@@ -1,0 +1,305 @@
+  [1m[36m (25.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (6.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateTalents (20151202220135)
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36m (64.0ms)[0m  [1mCREATE TABLE "talents" ("id" serial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (4.7ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151202220135"]]
+  [1m[36m (3.0ms)[0m  [1mCOMMIT[0m
+Migrating to CreateStudents (20151202220154)
+  [1m[35m (2.3ms)[0m  BEGIN
+  [1m[36m (41.4ms)[0m  [1mCREATE TABLE "students" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151202220154"]]
+  [1m[36m (3.3ms)[0m  [1mCOMMIT[0m
+Migrating to CreateStudentsTalents (20151202220353)
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (12.2ms)[0m  [1mCREATE TABLE "students_talents" ("id" serial primary key, "student_id" integer, "talent_id" integer) [0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151202220353"]]
+  [1m[36m (7.7ms)[0m  [1mCOMMIT[0m
+Migrating to DeviseCreateUsers (20151207022020)
+  [1m[35m (3.7ms)[0m  BEGIN
+  [1m[36m (38.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (13.5ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36m (16.2ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (6.9ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151207022020"]]
+  [1m[36m (4.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.8ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (25.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'students'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (15.0ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'students_talents'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (21.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'talents'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (16.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-07 11:43:24 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by TalentsController#index as HTML
+Completed 401 Unauthorized in 126ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-12-07 11:43:25 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/robert/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (6.1ms)
+  Rendered /home/robert/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/devise-3.5.2/app/views/devise/sessions/new.html.erb within layouts/application (213.4ms)
+Completed 200 OK in 9891ms (Views: 9758.3ms | ActiveRecord: 13.6ms)
+
+
+Started GET "/assets/application.self-4edf1c2bb1c12fbd2fb654ef0fa0637ff0b5d4e9c1dcef71f8230d0ff75023ee.css?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/assets/bootstrap.min.self-66fe84b79c6d5db31355296a8c9627d232721fe3ac3c31f3554ccc7e999279b6.css?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/assets/students.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/assets/bootstrap.min.self-d475868eedd65d9ab19f96e8574a2c8ce91ba7d64b8bbfa47cd55591a956ed67.js?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for 127.0.0.1 at 2015-12-07 11:43:36 -0800
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2015-12-07 11:43:42 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /home/robert/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (5.7ms)
+  Rendered /home/robert/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (37.6ms)
+Completed 200 OK in 431ms (Views: 420.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2015-12-07 11:44:00 -0800
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Kps0+mg6o7VjZ7T5tKbWB+eZTM++vAlBaBPZRXM3wujxVLLoYu3A4+vMn012rVP8wRCfD2o4zIU231fDdLezmg==", "user"=>{"email"=>"sup@yahoo.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (3.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'sup@yahoo.com' LIMIT 1[0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "sup@yahoo.com"], ["encrypted_password", "$2a$10$/9I3hfiVdWFwZ8G3K0Osdu.3LrzPIJK3bI8mMg3G6v67Axc4qniVi"], ["created_at", "2015-12-07 19:44:00.522471"], ["updated_at", "2015-12-07 19:44:00.522471"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (3.7ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["last_sign_in_at", "2015-12-07 19:44:00.548121"], ["current_sign_in_at", "2015-12-07 19:44:00.548121"], ["last_sign_in_ip", "127.0.0.1/32"], ["current_sign_in_ip", "127.0.0.1/32"], ["sign_in_count", 1], ["updated_at", "2015-12-07 19:44:00.556113"], ["id", 1]]
+  [1m[35m (2.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/
+Completed 302 Found in 597ms (ActiveRecord: 20.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-07 11:44:00 -0800
+Processing by TalentsController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mTalent Load (6.7ms)[0m  SELECT "talents".* FROM "talents"
+  Rendered talents/index.html.erb within layouts/application (22.1ms)
+Completed 200 OK in 635ms (Views: 447.1ms | ActiveRecord: 9.4ms)
+
+
+Started GET "/talents" for 127.0.0.1 at 2015-12-07 11:44:08 -0800
+Processing by TalentsController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mTalent Load (0.6ms)[0m  SELECT "talents".* FROM "talents"
+  Rendered talents/index.html.erb within layouts/application (15.8ms)
+Completed 200 OK in 364ms (Views: 346.6ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/talents/new" for 127.0.0.1 at 2015-12-07 11:44:11 -0800
+Processing by TalentsController#new as HTML
+  [1m[36mUser Load (11.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mStudent Load (1.6ms)[0m  SELECT "students".* FROM "students"
+  Rendered talents/_form.html.erb (420.8ms)
+  Rendered talents/new.html.erb within layouts/application (443.2ms)
+Completed 200 OK in 848ms (Views: 795.2ms | ActiveRecord: 19.8ms)
+
+
+Started POST "/talents" for 127.0.0.1 at 2015-12-07 11:44:21 -0800
+Processing by TalentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OJYgWn4qw0Tc5pyAyFXE5QxySvG6jEpTnB3AoJmnSJjjWaZIdP2gElRNtzQKXkEeKvuZMW4Ij5fC0U4mnic56g==", "talent"=>{"name"=>"", "student_ids"=>[""]}, "commit"=>"Create Talent"}
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (12.3ms)[0m  BEGIN
+  [1m[36mSQL (6.2ms)[0m  [1mINSERT INTO "talents" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", ""], ["created_at", "2015-12-07 19:44:21.876258"], ["updated_at", "2015-12-07 19:44:21.876258"]]
+  [1m[35m (8.7ms)[0m  COMMIT
+Redirected to http://localhost:3000/talents/1
+Completed 302 Found in 98ms (ActiveRecord: 28.1ms)
+
+
+Started GET "/talents/1" for 127.0.0.1 at 2015-12-07 11:44:22 -0800
+Processing by TalentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (4.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mTalent Load (4.2ms)[0m  SELECT  "talents".* FROM "talents" WHERE "talents"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (1.5ms)[0m  [1mSELECT "students".* FROM "students" INNER JOIN "students_talents" ON "students"."id" = "students_talents"."student_id" WHERE "students_talents"."talent_id" = $1[0m  [["talent_id", 1]]
+  Rendered talents/show.html.erb within layouts/application (42.9ms)
+Completed 200 OK in 548ms (Views: 508.6ms | ActiveRecord: 10.2ms)
+
+
+Started GET "/talents/1/edit" for 127.0.0.1 at 2015-12-07 11:44:29 -0800
+Processing by TalentsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (9.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mTalent Load (0.8ms)[0m  [1mSELECT  "talents".* FROM "talents" WHERE "talents"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mStudent Load (4.0ms)[0m  SELECT "students".* FROM "students" INNER JOIN "students_talents" ON "students"."id" = "students_talents"."student_id" WHERE "students_talents"."talent_id" = $1  [["talent_id", 1]]
+  [1m[36mStudent Load (13.0ms)[0m  [1mSELECT "students".* FROM "students"[0m
+  Rendered talents/_form.html.erb (87.4ms)
+  Rendered talents/edit.html.erb within layouts/application (100.0ms)
+Completed 200 OK in 528ms (Views: 484.8ms | ActiveRecord: 27.3ms)
+
+
+Started GET "/students" for 127.0.0.1 at 2015-12-07 11:44:33 -0800
+Processing by StudentsController#index as HTML
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (16.3ms)[0m  [1mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (22.4ms)
+Completed 200 OK in 534ms (Views: 500.3ms | ActiveRecord: 17.1ms)
+
+
+Started GET "/students/new" for 127.0.0.1 at 2015-12-07 11:44:36 -0800
+Processing by StudentsController#new as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered students/_form.html.erb (34.3ms)
+  Rendered students/new.html.erb within layouts/application (45.4ms)
+Completed 200 OK in 443ms (Views: 408.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/talents/new" for 127.0.0.1 at 2015-12-07 11:45:00 -0800
+Processing by TalentsController#new as HTML
+  [1m[36mUser Load (4.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mStudent Load (5.1ms)[0m  SELECT "students".* FROM "students"
+  Rendered talents/_form.html.erb (80.6ms)
+  Rendered talents/new.html.erb within layouts/application (89.7ms)
+Completed 200 OK in 627ms (Views: 609.7ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/students" for 127.0.0.1 at 2015-12-07 11:45:05 -0800
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mStudent Load (0.6ms)[0m  SELECT "students".* FROM "students"
+  Rendered students/index.html.erb within layouts/application (8.4ms)
+Completed 200 OK in 345ms (Views: 321.6ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/students/new" for 127.0.0.1 at 2015-12-07 11:45:09 -0800
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (5.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered students/_form.html.erb (10.9ms)
+  Rendered students/new.html.erb within layouts/application (24.6ms)
+Completed 200 OK in 506ms (Views: 494.4ms | ActiveRecord: 5.4ms)
+
+
+Started POST "/students" for 127.0.0.1 at 2015-12-07 11:45:24 -0800
+Processing by StudentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7zAq3PuCe21MvoknQ4DUgllZiXEmve6Vw0uM6rQap580/6zO8VUYO8QVopOBi1F5f9BasfI5K1GdhwJss5rW7Q==", "student"=>{"name"=>"Roberto Cervantes", "email"=>"sup@yahoo.com"}, "commit"=>"Create Student"}
+  [1m[35mUser Load (6.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36m (4.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "students" ("name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Roberto Cervantes"], ["email", "sup@yahoo.com"], ["created_at", "2015-12-07 19:45:24.961294"], ["updated_at", "2015-12-07 19:45:24.961294"]]
+  [1m[36m (3.9ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/students/1
+Completed 302 Found in 59ms (ActiveRecord: 16.2ms)
+
+
+Started GET "/students/1" for 127.0.0.1 at 2015-12-07 11:45:25 -0800
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (7.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (1.4ms)[0m  [1mSELECT  "students".* FROM "students" WHERE "students"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered students/show.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 495ms (Views: 450.6ms | ActiveRecord: 9.2ms)
+
+
+Started GET "/students" for 127.0.0.1 at 2015-12-07 11:45:29 -0800
+Processing by StudentsController#index as HTML
+  [1m[35mUser Load (6.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (4.9ms)[0m  [1mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (10.2ms)
+Completed 200 OK in 389ms (Views: 370.4ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/talents/new" for 127.0.0.1 at 2015-12-07 11:45:35 -0800
+Processing by TalentsController#new as HTML
+  [1m[35mUser Load (13.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (0.8ms)[0m  [1mSELECT "students".* FROM "students"[0m
+  Rendered talents/_form.html.erb (62.2ms)
+  Rendered talents/new.html.erb within layouts/application (71.3ms)
+Completed 200 OK in 486ms (Views: 463.5ms | ActiveRecord: 14.3ms)
+
+
+Started POST "/talents" for 127.0.0.1 at 2015-12-07 11:45:49 -0800
+Processing by TalentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gr91sQ9mCh6Df5lX88qAYl4wx0BgdB4KEInoNubI5BhZcPOjBbFpSAvUsuMxwQWZeLkUgLTw285ORWaw4UiVag==", "talent"=>{"name"=>"Eating", "student_ids"=>["", "1"]}, "commit"=>"Create Talent"}
+  [1m[35mUser Load (2.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mStudent Load (3.9ms)[0m  [1mSELECT  "students".* FROM "students" WHERE "students"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (2.5ms)[0m  BEGIN
+  [1m[36mSQL (5.6ms)[0m  [1mINSERT INTO "talents" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Eating"], ["created_at", "2015-12-07 19:45:49.409490"], ["updated_at", "2015-12-07 19:45:49.409490"]]
+  [1m[35mSQL (3.7ms)[0m  INSERT INTO "students_talents" ("student_id", "talent_id") VALUES ($1, $2) RETURNING "id"  [["student_id", 1], ["talent_id", 2]]
+  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/talents/2
+Completed 302 Found in 171ms (ActiveRecord: 27.8ms)
+
+
+Started GET "/talents/2" for 127.0.0.1 at 2015-12-07 11:45:49 -0800
+Processing by TalentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mTalent Load (3.5ms)[0m  [1mSELECT  "talents".* FROM "talents" WHERE "talents"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mStudent Load (5.3ms)[0m  SELECT "students".* FROM "students" INNER JOIN "students_talents" ON "students"."id" = "students_talents"."student_id" WHERE "students_talents"."talent_id" = $1  [["talent_id", 2]]
+  Rendered talents/show.html.erb within layouts/application (21.3ms)
+Completed 200 OK in 438ms (Views: 403.8ms | ActiveRecord: 9.4ms)
+
+
+Started GET "/talents/2/edit" for 127.0.0.1 at 2015-12-07 11:45:56 -0800
+Processing by TalentsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (8.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mTalent Load (0.8ms)[0m  SELECT  "talents".* FROM "talents" WHERE "talents"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mStudent Load (5.9ms)[0m  [1mSELECT "students".* FROM "students" INNER JOIN "students_talents" ON "students"."id" = "students_talents"."student_id" WHERE "students_talents"."talent_id" = $1[0m  [["talent_id", 2]]
+  [1m[35mStudent Load (0.7ms)[0m  SELECT "students".* FROM "students"
+  Rendered talents/_form.html.erb (85.6ms)
+  Rendered talents/edit.html.erb within layouts/application (90.7ms)
+Completed 200 OK in 486ms (Views: 455.1ms | ActiveRecord: 15.7ms)
+
+
+Started GET "/talents" for 127.0.0.1 at 2015-12-07 11:46:02 -0800
+Processing by TalentsController#index as HTML
+  [1m[36mUser Load (11.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mTalent Load (5.5ms)[0m  SELECT "talents".* FROM "talents"
+  Rendered talents/index.html.erb within layouts/application (16.2ms)
+Completed 200 OK in 364ms (Views: 339.4ms | ActiveRecord: 16.7ms)
